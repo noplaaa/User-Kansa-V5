@@ -2,5 +2,5 @@
 session_start(); 
 session_unset();
 session_destroy(); 
-header("location:splash.php");
+header("location: ../../../src/views/splash/splash.php");
 ?>

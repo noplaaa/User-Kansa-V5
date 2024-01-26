@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+error_reporting();
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $responseData = json_decode($verifyResponse);
     
     if ($responseData && $responseData->success) {
-        include "database.php";
+        include "../../database.php";
         $username = $_POST['username'];
         $password = md5($_POST['pass']);
         $SQL = mysqli_query($conn,"SELECT * FROM user WHERE Nama_User='$username' AND Pass='$password'");
@@ -41,16 +41,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['ID_User'] = $data['ID_User'];
             $_SESSION['Nama_User'] = $username;
             $_SESSION['Rolenya'] = "User";
-            header("location:dashboard.php");
+            header("location: ../../../src/views/canteen/dashboard.php");
         } else if($data['Rolenya'] == "Admin"){
             $_SESSION['Nama_User'] = $username;
             $_SESSION['Rolenya'] = "Admin";
-            header("location:Login.php");
+            header("location:../../../src/views/login/login.php");
         } else {
-            header("location:Incorrect_Password.php"); //incorrect input
+            header("location:Incorrect_Password.php"); // incorrect input
         }
     } else {
-        header("location:Incorrect_Recaptcha.php"); //reCAPTCHA failed
+        header("location:Incorrect_Recaptcha.php"); // reCAPTCHA failed
     }
 }
 ?>
